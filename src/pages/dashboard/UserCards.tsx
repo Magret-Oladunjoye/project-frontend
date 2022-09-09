@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 import { Container, Grid, Skeleton } from '@mui/material';
 // redux
 import { RootState, useDispatch, useSelector } from '../../redux/store';
-import { getUsers } from '../../redux/slices/user';
+import { getProjectsList } from '../../redux/slices/project';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
-import { UserCard } from '../../components/_dashboard/user/cards';
+import { ProjectCard } from '../../components/_dashboard/project/cards';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 // ----------------------------------------------------------------------
@@ -28,31 +28,31 @@ const SkeletonLoad = (
 export default function UserCards() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
-  const { users } = useSelector((state: RootState) => state.user);
+  const { projects } = useSelector((state: RootState) => state.project);
 
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getProjectsList());
   }, [dispatch]);
 
   return (
-    <Page title="User: Cards | Minimal-UI">
+    <Page title="Project: Cards | Minimal-UI">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="User Cards"
+          heading="Project Cards"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
+            { name: 'Project', href: PATH_DASHBOARD.project.root },
             { name: 'Cards' }
           ]}
         />
         <Grid container spacing={3}>
-          {users.map((user) => (
-            <Grid key={user.id} item xs={12} sm={6} md={4}>
-              <UserCard user={user} />
+          {projects.map((project) => (
+            <Grid key={project.id} item xs={12} sm={6} md={4}>
+              <ProjectCard project={project} />
             </Grid>
           ))}
 
-          {!users.length && SkeletonLoad}
+          {!projects.length && SkeletonLoad}
         </Grid>
       </Container>
     </Page>

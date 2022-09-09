@@ -52,14 +52,14 @@ export const PATH_DASHBOARD = {
   },
   calendar: path(ROOTS_DASHBOARD, '/calendar'),
   kanban: path(ROOTS_DASHBOARD, '/kanban'),
-  user: {
-    root: path(ROOTS_DASHBOARD, '/user'),
-    profile: path(ROOTS_DASHBOARD, '/user/profile'),
-    cards: path(ROOTS_DASHBOARD, '/user/cards'),
-    list: path(ROOTS_DASHBOARD, '/user/list'),
-    newUser: path(ROOTS_DASHBOARD, '/user/new'),
-    editById: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
-    account: path(ROOTS_DASHBOARD, '/user/account')
+  project: {
+    root: path(ROOTS_DASHBOARD, '/project'),
+    profile: path(ROOTS_DASHBOARD, '/project/profile'),
+    cards: path(ROOTS_DASHBOARD, '/project/cards'),
+    list: path(ROOTS_DASHBOARD, '/project/list'),
+    newProject: path(ROOTS_DASHBOARD, '/project/new'),
+    editById: path(ROOTS_DASHBOARD, `/project/reece-chung/edit`),
+    account: path(ROOTS_DASHBOARD, '/project/account')
   },
   eCommerce: {
     root: path(ROOTS_DASHBOARD, '/e-commerce'),

@@ -9,7 +9,7 @@ import { Box, Grid, Card, IconButton, Typography, CardContent } from '@mui/mater
 import { fDate } from '../../../../utils/formatTime';
 import LightboxModal from '../../../LightboxModal';
 // @types
-import { Gallery } from '../../../../@types/user';
+import { Gallery } from '../../../../@types/project';
 // ----------------------------------------------------------------------
 
 const CaptionStyle = styled(CardContent)(({ theme }) => ({

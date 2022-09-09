@@ -1,7 +1,13 @@
 // ----------------------------------------------------------------------
 
-export type User = {
+export type Project = {
   id: string;
+  project_name: string,
+  project_size: string,
+  project_start_date: Date,
+  project_end_date: Date,
+  working_employees: string
+  Manager: string,
   displayName: string;
   email: string;
   password: string;

@@ -5,7 +5,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Container } from '@mui/material';
 // redux
 import { useDispatch, useSelector, RootState } from '../../redux/store';
-import { getUserList } from '../../redux/slices/user';
+import { getProjectsList } from '../../redux/slices/project';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -13,7 +13,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import UserNewForm from '../../components/_dashboard/user/UserNewForm';
+import ProjectNewForm from '../../components/_dashboard/project/ProjectNewForm';
 
 // ----------------------------------------------------------------------
 
@@ -22,27 +22,27 @@ export default function UserCreate() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { name = '' } = useParams();
-  const { userList } = useSelector((state: RootState) => state.user);
+  const { projectList } = useSelector((state: RootState) => state.project);
   const isEdit = pathname.includes('edit');
-  const currentUser = userList.find((user) => paramCase(user.name) === name);
+  const currentUser = projectList.find((user) => paramCase(user.project_name) === name);
 
   useEffect(() => {
-    dispatch(getUserList());
+    dispatch(getProjectsList());
   }, [dispatch]);
 
   return (
     <Page title="User: Create a new project | Minimal-UI">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading={!isEdit ? 'Create a new user' : 'Edit project'}
+          heading={!isEdit ? 'Create a new project' : 'Edit project'}
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'project', href: PATH_DASHBOARD.user.root },
+            { name: 'project', href: PATH_DASHBOARD.project.root },
             { name: !isEdit ? 'New project' : name }
           ]}
         />
 
-        <UserNewForm isEdit={isEdit} currentUser={currentUser} />
+        <ProjectNewForm isEdit={isEdit} currentUser={currentUser} />
       </Container>
     </Page>
   );

@@ -149,12 +149,12 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }: Dash
         {isCollapse ? (
           <MyAvatar sx={{ mx: 'auto', mb: 2 }} />
         ) : (
-          <Link underline="none" component={RouterLink} to={PATH_DASHBOARD.user.account}>
+          <Link underline="none" component={RouterLink} to={PATH_DASHBOARD.project.account}>
             <AccountStyle>
               <MyAvatar />
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                  {user?.displayName}
+                  {user?.firstName}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   {user?.role}

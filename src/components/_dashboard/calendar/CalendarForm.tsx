@@ -156,7 +156,7 @@ export default function CalendarForm({ event, range, onCancel }: CalendarFormPro
             label="Start date"
             value={values.start}
             inputFormat="dd/MM/yyyy hh:mm a"
-            onChange={(date) => setFieldValue('start', date)}
+            onChange={(start_date) => setFieldValue('start', start_date)}
             renderInput={(params) => <TextField {...params} fullWidth sx={{ mb: 3 }} />}
           />
 
@@ -164,7 +164,7 @@ export default function CalendarForm({ event, range, onCancel }: CalendarFormPro
             label="End date"
             value={values.end}
             inputFormat="dd/MM/yyyy hh:mm a"
-            onChange={(date) => setFieldValue('end', date)}
+            onChange={(end_date) => setFieldValue('end', end_date)}
             renderInput={(params) => (
               <TextField
                 {...params}

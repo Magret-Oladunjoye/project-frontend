@@ -8,7 +8,7 @@ import { LoadingButton } from '@mui/lab';
 // utils
 import fakeRequest from '../../../../utils/fakeRequest';
 // @types
-import { NotificationSettings } from '../../../../@types/user';
+import { NotificationSettings } from '../../../../@types/project';
 
 // ----------------------------------------------------------------------
 

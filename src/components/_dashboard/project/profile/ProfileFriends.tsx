@@ -22,7 +22,7 @@ import {
   InputAdornment
 } from '@mui/material';
 // @types
-import { Friend } from '../../../../@types/user';
+import { Friend } from '../../../../@types/project';
 //
 import SearchNotFound from '../../../SearchNotFound';
 

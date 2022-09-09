@@ -4,7 +4,7 @@ import checkmarkFill from '@iconify/icons-eva/checkmark-fill';
 // material
 import { Box, Grid, Card, Button, Avatar, Typography } from '@mui/material'; // @types
 // @types
-import { Follower } from '../../../../@types/user';
+import { Follower } from '../../../../@types/project';
 // ----------------------------------------------------------------------
 
 type FollowerCardProps = {

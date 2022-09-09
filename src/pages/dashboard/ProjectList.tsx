@@ -1,11 +1,10 @@
 import { filter } from 'lodash';
 import { Icon } from '@iconify/react';
-import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-import { useTheme } from '@mui/material/styles';
+
 import {
   Card,
   Table,
@@ -23,30 +22,28 @@ import {
 } from '@mui/material';
 // redux
 import { RootState, useDispatch, useSelector } from '../../redux/store';
-import { getUserList, deleteUser } from '../../redux/slices/user';
+import { getProjectsList, deleteProject } from '../../redux/slices/project';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // @types
-import { UserManager } from '../../@types/user';
+import { ProjectManager } from '../../@types/project';
 // components
 import Page from '../../components/Page';
-import Label from '../../components/Label';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../../components/_dashboard/user/list';
+import { ProjectListHead, ProjectListToolbar, ProjectMoreMenu } from '../../components/_dashboard/project/list';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Project Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: '' }
+  { id: 'size', label: 'Project Size', alignRight: false },
+  { id: 'date', label: 'Start Date', alignRight: false },
+  { id: 'date', label: 'End Date', alignRight: false },
+  { id: 'workingemps', label: 'Working Employees', alignRight: false },
 ];
 
 // ----------------------------------------------------------------------
@@ -70,7 +67,7 @@ function getComparator(order: string, orderBy: string) {
 }
 
 function applySortFilter(
-  array: UserManager[],
+  array: ProjectManager[],
   comparator: (a: any, b: any) => number,
   query: string
 ) {
@@ -81,17 +78,15 @@ function applySortFilter(
     return a[1] - b[1];
   });
   if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_project) => _project.project_name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function UserList() {
+export default function ProjectList() {
   const { themeStretch } = useSettings();
-  const theme = useTheme();
   const dispatch = useDispatch();
-
-  const { userList } = useSelector((state: RootState) => state.user);
+  const { projectList } = useSelector((state: RootState) => state.project);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   const [selected, setSelected] = useState<string[]>([]);
@@ -100,7 +95,7 @@ export default function UserList() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
-    dispatch(getUserList());
+    dispatch(getProjectsList());
   }, [dispatch]);
 
   const handleRequestSort = (property: string) => {
@@ -111,7 +106,7 @@ export default function UserList() {
 
   const handleSelectAllClick = (checked: boolean) => {
     if (checked) {
-      const newSelecteds = userList.map((n) => n.name);
+      const newSelecteds = projectList.map((n) => n.project_name);
       setSelected(newSelecteds);
       return;
     }
@@ -145,31 +140,35 @@ export default function UserList() {
     setFilterName(filterName);
   };
 
-  const handleDeleteUser = (userId: string) => {
-    dispatch(deleteUser(userId));
+  const handleDeleteProject = (projectId: string) => {
+    dispatch(deleteProject(projectId));
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projectList.length) : 0;
 
-  const filteredUsers = applySortFilter(userList, getComparator(order, orderBy), filterName);
+  const filteredProjects = applySortFilter(projectList, getComparator(order, orderBy), filterName);
 
-  const isUserNotFound = filteredUsers.length === 0;
+  const isProjectNotFound = filteredProjects.length === 0;
+
+
+
+
 
   return (
-    <Page title="User: List | Minimal-UI">
+    <Page title="Project: List | Minimal-UI">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Projects List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Projects', href: PATH_DASHBOARD.user.root },
-            { name: ' ' }
+            { name: 'Projects', href: PATH_DASHBOARD.project.root },
+            { name: 'New Project' }
           ]}
           action={
             <Button
               variant="contained"
               component={RouterLink}
-              to={PATH_DASHBOARD.user.newUser}
+              to={PATH_DASHBOARD.project.newProject}
               startIcon={<Icon icon={plusFill} />}
             >
               New Project
@@ -178,7 +177,7 @@ export default function UserList() {
         />
 
         <Card>
-          <UserListToolbar
+          <ProjectListToolbar
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
@@ -187,21 +186,21 @@ export default function UserList() {
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <UserListHead
+                <ProjectListHead
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={userList.length}
+                  rowCount={projectList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers
+                  {filteredProjects
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                      const isItemSelected = selected.indexOf(name) !== -1;
+                      const { id, project_name, project_size, project_start_date, project_end_date, working_employees, Manager } = row;
+                      const isItemSelected = selected.indexOf(project_name) !== -1;
 
                       return (
                         <TableRow
@@ -213,30 +212,24 @@ export default function UserList() {
                           aria-checked={isItemSelected}
                         >
                           <TableCell padding="checkbox">
-                            <Checkbox checked={isItemSelected} onClick={() => handleClick(name)} />
+                            <Checkbox checked={isItemSelected} onClick={() => handleClick(project_name)} />
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
-                              <Avatar alt={name} src={avatarUrl} />
+                              <Avatar alt={project_name} src={''} />
                               <Typography variant="subtitle2" noWrap>
-                                {name}
+                                {project_name}
                               </Typography>
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{company}</TableCell>
-                          <TableCell align="left">{role}</TableCell>
-                          <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                          <TableCell align="left">
-                            <Label
-                              variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-                              color={(status === 'banned' && 'error') || 'success'}
-                            >
-                              {sentenceCase(status)}
-                            </Label>
-                          </TableCell>
+                          <TableCell align="left">{project_size}</TableCell>
+                          <TableCell align="left">{project_start_date}</TableCell>
+                          <TableCell align="left">{project_end_date}</TableCell>
+                          <TableCell align="left"> {working_employees}</TableCell>
+                          <TableCell align="left"> {Manager}</TableCell>
 
                           <TableCell align="right">
-                            <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={name} />
+                            <ProjectMoreMenu onDelete={() => handleDeleteProject(id)} projectName={project_name} />
                           </TableCell>
                         </TableRow>
                       );
@@ -247,7 +240,7 @@ export default function UserList() {
                     </TableRow>
                   )}
                 </TableBody>
-                {isUserNotFound && (
+                {isProjectNotFound && (
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -263,7 +256,7 @@ export default function UserList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={userList.length}
+            count={projectList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={(e, page) => setPage(page)}

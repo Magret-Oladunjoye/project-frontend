@@ -22,6 +22,7 @@ import HeaderBreadcrumbs from '../../../../components/HeaderBreadcrumbs';
 //
 import FormikForm from './FormikForm';
 import ReactHookForm from './ReactHookForm';
+import { EnumType } from 'typescript';
 
 // ----------------------------------------------------------------------
 
@@ -62,6 +63,46 @@ export const defaultValues = {
   photo: null,
   terms: false
 };
+
+
+
+export type ProjectValuesProps = {
+  projectName: string;
+  size: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  workingEmps: string;
+  manager: string;
+};
+
+
+export const projectDefaultValues = {
+  projectName: '',
+  size: '',
+  startDate:null,
+  endDate: null,
+  workingEmps: '',
+  manager: ''
+};
+
+
+export const projectFormSchema = Yup.object().shape({
+  projectName: Yup.string()
+    .required('Project name is required'),
+  size: Yup.string()
+    .required('size is required'),
+  startDate: Yup.date().nullable().required('Start date is required'),
+  endDate: Yup.date()
+    .required('End date is required')
+    .nullable()
+    .min(Yup.ref('startDate'), 'End date must be later than start date'),
+  workingEmps: Yup.number()
+    .required('required'),
+  manager: Yup.string()
+    .required('is required'),
+});
+
+
 
 export const FormSchema = Yup.object().shape({
   fullName: Yup.string()

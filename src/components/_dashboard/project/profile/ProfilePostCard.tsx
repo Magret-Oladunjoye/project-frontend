@@ -26,7 +26,7 @@ import {
   FormControlLabel
 } from '@mui/material';
 // @types
-import { UserPost } from '../../../../@types/user';
+import { UserPost } from '../../../../@types/project';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
 // utils

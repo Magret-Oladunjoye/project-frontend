@@ -2,7 +2,7 @@ import { random, sample } from 'lodash';
 // utils
 import mock from './mock';
 import mockData from '../utils/mock-data';
-import user from 'redux/slices/user';
+import user from 'redux/slices/project';
 import { userInfo } from 'os';
 import { email } from 'utils/mock-data/email';
 

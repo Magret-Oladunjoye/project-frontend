@@ -4,7 +4,8 @@ import axios from 'axios';
 import { isValidToken, setSession } from '../utils/jwt';
 // @types
 import { ActionMap, AuthState, AuthUser, JWTContextType } from '../@types/authentication';
-import user from 'redux/slices/user';
+import project from 'redux/slices/project';
+import { EnumType } from 'typescript';
 
 // ----------------------------------------------------------------------
 
@@ -121,7 +122,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const host = "http://localhost:3001";
   const login = async (email: string, password: string) => {
     
-    console.log('Hi neslihan',host)
     const response = await axios.post(`${host}/auth/signin`, JSON.stringify({
       email,
       password
@@ -153,10 +153,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const whoami = async () => {
-    return user;
-  }
-
   const register = async ( firstName: string, lastName: string, email: string, password: string) => {
     const response = await axios.post(`${host}/auth/signup`, {
       firstName,
@@ -181,6 +177,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const resetPassword = (email: string) => console.log(email);
+
 
   const updateProfile = () => {};
 

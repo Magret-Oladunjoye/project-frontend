@@ -58,32 +58,24 @@ export type Profile = {
   twitterLink: string;
 };
 
-export type UserManager = {
+export type ProjectManager = {
   id: string;
-  avatarUrl: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  country: string;
-  state: string;
-  city: string;
-  zipCode: string;
-  company: string;
-  isVerified: boolean;
-  status: string;
-  role: string;
+  project_name: string,
+  project_size: string,
+  project_start_date: Date,
+  project_end_date: Date,
+  working_employees: string
+  Manager: string,
 };
 
-export type UserData = {
+export type ProjectData = {
   id: string;
-  avatarUrl: string;
-  cover: string;
-  name: string;
-  follower: number;
-  following: number;
-  totalPost: number;
-  position: string;
+  project_name: string,
+  project_size: string,
+  project_start_date: Date,
+  project_end_date: Date,
+  working_employees: number
+  Manager: string,
 };
 
 export type NotificationSettings = {

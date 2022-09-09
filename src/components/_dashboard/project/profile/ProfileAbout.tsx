@@ -6,7 +6,7 @@ import roundBusinessCenter from '@iconify/icons-ic/round-business-center';
 import { styled } from '@mui/material/styles';
 import { Link, Card, Typography, CardHeader, Stack } from '@mui/material';
 // @types
-import { Profile } from '../../../../@types/user';
+import { Profile } from '../../../../@types/project';
 
 // ----------------------------------------------------------------------
 

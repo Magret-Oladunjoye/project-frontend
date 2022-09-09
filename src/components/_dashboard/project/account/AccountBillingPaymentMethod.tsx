@@ -18,7 +18,7 @@ import {
 import { LoadingButton } from '@mui/lab';
 import { SxProps } from '@mui/system';
 // @types
-import { CreditCard, AccountBillingFormikProps } from '../../../../@types/user';
+import { CreditCard, AccountBillingFormikProps } from '../../../../@types/project';
 //
 
 // ----------------------------------------------------------------------

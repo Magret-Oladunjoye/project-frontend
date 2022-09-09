@@ -4,7 +4,7 @@ import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@
 
 // ----------------------------------------------------------------------
 
-type UserListHeadProps = {
+type ProjectListHeadProps = {
   order: 'asc' | 'desc';
   orderBy: string;
   rowCount: number;
@@ -14,7 +14,7 @@ type UserListHeadProps = {
   onSelectAllClick: (checked: boolean) => void;
 };
 
-export default function UserListHead({
+export default function ProjectListHead({
   order,
   orderBy,
   rowCount,
@@ -22,7 +22,7 @@ export default function UserListHead({
   numSelected,
   onRequestSort,
   onSelectAllClick
-}: UserListHeadProps) {
+}: ProjectListHeadProps) {
   return (
     <TableHead>
       <TableRow>

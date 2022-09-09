@@ -38,17 +38,17 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-type UserListToolbarProps = {
+type ProjectListToolbarProps = {
   numSelected: number;
   filterName: string;
   onFilterName: (value: string) => void;
 };
 
-export default function UserListToolbar({
+export default function ProjectListToolbar({
   numSelected,
   filterName,
   onFilterName
-}: UserListToolbarProps) {
+}: ProjectListToolbarProps) {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
 

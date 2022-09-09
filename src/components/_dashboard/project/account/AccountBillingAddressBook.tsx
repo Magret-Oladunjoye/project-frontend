@@ -5,7 +5,7 @@ import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 // material
 import { Box, Card, Button, Typography, CardProps, Stack, Paper } from '@mui/material';
 // @types
-import { UserAddressBook } from '../../../../@types/user';
+import { UserAddressBook } from '../../../../@types/project';
 
 // ----------------------------------------------------------------------
 

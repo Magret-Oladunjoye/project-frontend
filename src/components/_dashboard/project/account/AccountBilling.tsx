@@ -7,7 +7,7 @@ import { Box, Grid, Card, Button, Typography, Stack } from '@mui/material';
 // utils
 import fakeRequest from '../../../../utils/fakeRequest';
 // @types
-import { CreditCard, UserAddressBook, UserInvoice } from '../../../../@types/user';
+import { CreditCard, UserAddressBook, UserInvoice } from '../../../../@types/project';
 //
 import AccountBillingAddressBook from './AccountBillingAddressBook';
 import AccountBillingPaymentMethod from './AccountBillingPaymentMethod';

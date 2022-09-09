@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import fakeRequest from '../utils/fakeRequest';
 import { verify, sign } from '../utils/jwt';
 // @types
-import { User } from '../@types/account';
+import { Project } from '../@types/account';
 //
 import mock from './mock';
 import { firstName, lastName } from 'utils/mock-data/name';
@@ -13,9 +13,15 @@ import { firstName, lastName } from 'utils/mock-data/name';
 const JWT_SECRET = 'minimal-secret-key';
 const JWT_EXPIRES_IN = '5 days';
 
-const users: User[] = [
+const Projects: Project[] = [
   {
     id: '8864c717-587d-472a-929a-8e5f298024da-0',
+    project_name: 'string',
+    project_size: 'string',
+    project_start_date: new Date(),
+    project_end_date: new Date(),
+    working_employees: 'string',
+    Manager: 'string',
     displayName: `${firstName} ${lastName}`,
     email: 'demo@minimals.cc',
     password: 'demo1234',
@@ -39,21 +45,21 @@ mock.onPost('/api/account/login').reply(async (config) => {
     await fakeRequest(1000);
 
     const { email, password } = JSON.parse(config.data);
-    const user = users.find((_user) => _user.email === email);
+    const Project = Projects.find((_Project) => _Project.email === email);
 
-    if (!user) {
-      return [400, { message: 'There is no user corresponding to the email address.' }];
+    if (!Project) {
+      return [400, { message: 'There is no Project corresponding to the email address.' }];
     }
 
-    if (user.password !== password) {
+    if (Project.password !== password) {
       return [400, { message: 'Wrong password' }];
     }
 
-    const accessToken = sign({ userId: user.id }, JWT_SECRET, {
+    const accessToken = sign({ ProjectId: Project.id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_IN
     });
 
-    return [200, { accessToken, user }];
+    return [200, { accessToken, Project }];
   } catch (error) {
     console.error(error);
     return [500, { message: 'Internal server error' }];
@@ -67,13 +73,19 @@ mock.onPost('/api/account/register').reply(async (config) => {
     await fakeRequest(1000);
 
     const { email, password, firstName, lastName } = JSON.parse(config.data);
-    let user = users.find((_user) => _user.email === email);
+    let Project = Projects.find((_Project) => _Project.email === email);
 
-    if (user) {
+    if (Project) {
       return [400, { message: 'There already exists an account with the given email address.' }];
     }
 
-    user = {
+    Project = {
+      project_name: '',
+      project_size: '',
+      project_start_date: new Date(),
+      project_end_date: new Date(),
+      working_employees: '',
+      Manager: '',
       id: uuidv4(),
       displayName: `${firstName} ${lastName}`,
       email,
@@ -86,15 +98,15 @@ mock.onPost('/api/account/register').reply(async (config) => {
       city: null,
       zipCode: null,
       about: null,
-      role: 'user',
+      role: 'Project',
       isPublic: true
     };
 
-    const accessToken = sign({ userId: user.id }, JWT_SECRET, {
+    const accessToken = sign({ ProjectId: Project.id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_IN
     });
 
-    return [200, { accessToken, user }];
+    return [200, { accessToken, Project }];
   } catch (error) {
     console.error(error);
     return [500, { message: 'Internal server error' }];
@@ -113,14 +125,14 @@ mock.onGet('/api/account/my-account').reply((config) => {
 
     const accessToken = Authorization.split(' ')[1];
     const data: any = verify(accessToken, JWT_SECRET);
-    const userId = typeof data === 'object' ? data?.userId : '';
-    const user = users.find((_user) => _user.id === userId);
+    const ProjectId = typeof data === 'object' ? data?.ProjectId : '';
+    const Project = Projects.find((_Project) => _Project.id === ProjectId);
 
-    if (!user) {
+    if (!Project) {
       return [401, { message: 'Invalid authorization token' }];
     }
 
-    return [200, { user }];
+    return [200, { Project }];
   } catch (error) {
     console.error(error);
     return [500, { message: 'Internal server error' }];

@@ -11,7 +11,7 @@ import { LoadingButton } from '@mui/lab';
 // utils
 import fakeRequest from '../../../../utils/fakeRequest';
 // @types
-import { Profile } from '../../../../@types/user';
+import { Profile } from '../../../../@types/project';
 
 // ----------------------------------------------------------------------
 

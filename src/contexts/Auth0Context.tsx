@@ -12,7 +12,7 @@ let auth0Client: Auth0Client | null = null;
 const initialState: AuthState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null
+  user: null,
 };
 
 enum Types {

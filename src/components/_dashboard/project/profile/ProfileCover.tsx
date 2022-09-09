@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 // material
 import MyAvatar from '../../../MyAvatar';
 // @types
-import { Profile } from '../../../../@types/user';
+import { Profile } from '../../../../@types/project';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
 

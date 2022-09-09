@@ -22,13 +22,13 @@ import { UploadAvatar } from '../../../upload';
 // utils
 import { fData } from '../../../../utils/formatNumber';
 // @types
-import { User } from '../../../../@types/account';
+import { Project } from '../../../../@types/account';
 //
 import countries from '../countries';
 
 // ----------------------------------------------------------------------
 
-interface InitialState extends Omit<User, 'password' | 'id' | 'role'> {
+interface InitialState extends Omit<Project, 'password' | 'id' | 'role'> {
   afterSubmit?: string;
 }
 
@@ -44,6 +44,12 @@ export default function AccountGeneral() {
   const formik = useFormik<InitialState>({
     enableReinitialize: true,
     initialValues: {
+      project_name: user?.project_name || '',
+      project_size: user?.project_size,
+      project_start_date: user?.project_start_date,
+      project_end_date: user?.project_end_date,
+      working_employees: user?.working_employees,
+      Manager: user?.Manager,
       displayName: user?.displayName || '',
       email: user?.email,
       photoURL: user?.photoURL,

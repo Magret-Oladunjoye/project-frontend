@@ -12,12 +12,12 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
-type UserMoreMenuProps = {
+type ProjectMoreMenuProps = {
   onDelete: VoidFunction;
-  userName: string;
+  projectName: string;
 };
 
-export default function UserMoreMenu({ onDelete, userName }: UserMoreMenuProps) {
+export default function ProjectMoreMenu({ onDelete, projectName }: ProjectMoreMenuProps) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,7 +46,7 @@ export default function UserMoreMenu({ onDelete, userName }: UserMoreMenuProps) 
 
         <MenuItem
           component={RouterLink}
-          to={`${PATH_DASHBOARD.user.root}/${paramCase(userName)}/edit`}
+          to={`${PATH_DASHBOARD.project.root}/${paramCase(projectName)}/edit`}
           sx={{ color: 'text.secondary' }}
         >
           <ListItemIcon>
